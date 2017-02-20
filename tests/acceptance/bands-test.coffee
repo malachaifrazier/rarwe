@@ -149,3 +149,48 @@ test 'create a new song in two steps', (assert) ->
     andThen ->
       assertElement(assert, '.songs .song:contains("Killer Cars")', 'Creates the song and displays it in the list');
 
+test 'Sort songs in various ways', (assert) ->
+  server = new Pretender ->
+    httpStubs.stubBands @, [
+      {
+        id: 1,
+        attributes: {
+          name: 'Them Crooked Vultures'
+        }
+      }
+    ]
+
+    httpStubs.stubSongs @, 1, [
+      {
+        id: 1,
+        attributes: {
+          title: 'Elephants',
+          rating: 5
+        }
+      },
+      {
+        id: 2,
+        attributes: {
+          title: 'New Fang',
+          rating: 4
+        }
+      },
+      {
+        id: 3,
+        attributes: {
+          title: 'Mind Eraser, No Chaser',
+          rating: 4
+        }
+      },
+      {
+        id: 4,
+        attributes: {
+          title: 'Spinning in Daffodils',
+          rating: 5
+        }
+      },
+    ]
+
+    selectBand 'Them Crooked Vultures'
+    andThen ->
+      assert.equal(currentURL(), '/bands/1/songs')

@@ -1,25 +1,27 @@
-# import { test, moduleForComponent } from 'ember-qunit'
-# import hbs from 'htmlbars-inline-precompile'
+import { test, moduleForComponent } from 'ember-qunit'
+import hbs from 'htmlbars-inline-precompile'
 
-# moduleForComponent 'star-rating', 'Integration | Component | star rating', {
-#   integration: true
-# }
+moduleForComponent 'star-rating', 'Integration | Component | star rating', {
+  integration: true
+}
 
-# test 'it renders', (assert) ->
-#   assert.expect 2
+test 'Renders the full and empty stars correctly', (assert) ->
+  assert.expect 6
 
-#   # Set any properties with @set 'myProperty', 'value'
-#   # Handle any actions with @on 'myAction', (val) ->
+  song = Ember.Object.create(rating: 4)
+  @set 'song', song
+  @set 'maxRating', 5
 
-#   @render hbs """{{star-rating}}"""
+  @render hbs """{{star-rating item=song rating=song.rating maxRating=maxRating}}"""
 
-#   assert.equal @$().text().trim(), ''
+  assert.equal @$('.glyphicon-star').length, 4, 'The right amount of full stars is rendered'
+  assert.equal @$('.glyphicon-star-empty').length, 1, 'The right amount of empty stars is rendered'
+  @set 'maxRating', 10
 
-#   # Template block usage:
-#   @render hbs """
-#     {{#star-rating}}
-#       template block text
-#     {{/star-rating}}
-#   """
+  assert.equal @$('.glyphicon-star').length, 4, 'The right amount of full stars is rendered after changing maxRating'
+  assert.equal @$('.glyphicon-star-empty').length, 6, 'The right amount of empty stars is rendered after changing maxRating'
 
-#   assert.equal @$().text().trim(), 'template block text'
+  @set 'song.rating', 2
+  assert.equal @$('.glyphicon-star').length, 2, 'The right amount of full stars is rendered after changing rating'
+
+  assert.equal @$('.glyphicon-star-empty').length, 8, 'The right amount of empty stars is rendered after changing rating'

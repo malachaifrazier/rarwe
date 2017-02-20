@@ -10,7 +10,7 @@ responseItemForBand = (data, id) ->
     relationships: {
       songs: {
         links: {
-          related: songsUrlForBand(data.id)
+          related: songsUrlForBand(bandId)
         }
       }
     }
@@ -35,22 +35,22 @@ export default {
       responseForBands.push(responseForBand)
 
     pretender.get '/bands', () ->
-      return [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: responseForBands }) ]
+      [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: responseForBands }) ]
 
   stubSongs: (pretender, bandId, data) ->
     response = data.map (song) ->
       responseItemForSong(song)
 
     pretender.get songsUrlForBand(bandId), () ->
-      return [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify(data: response) ]
+      [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: response }) ]
 
   stubCreateBand: (pretender, newId) ->
     pretender.post '/bands', (request) ->
       response = responseItemForBand(JSON.parse(request.requestBody), newId)
-      return [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: response }) ]
+      [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: response }) ]
 
   stubCreateSong: (pretender, newId) ->
     pretender.post '/songs', (request) ->
       response = responseItemForSong(JSON.parse(request.requestBody), newId)
-      return [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: response }) ]
+      [200, {'Content-Type': 'application/vnd.api+json'}, JSON.stringify({ data: response }) ]
 }

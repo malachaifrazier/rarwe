@@ -3,11 +3,10 @@ import Ember from 'ember'
 StarRatingComponent = Ember.Component.extend(
   tagName:    'div',
   classNames: ['rating-panel'],
-
   rating:     0,
   maxRating:  5,
   item:       null,
-  "onclick": null,
+  "on-click": null
 
   stars: Ember.computed('rating', 'maxRating', ->
     fullStars  = @starRange(1, @get('rating'), 'full')
@@ -21,7 +20,7 @@ StarRatingComponent = Ember.Component.extend(
     while i <= end
       starsData.push
         rating: i
-        full: `type == 'full'`
+        full: type == 'full'
       i++
     starsData
     # starsData = []
@@ -30,7 +29,10 @@ StarRatingComponent = Ember.Component.extend(
 
   actions: {
     setRating: (newRating) ->
-      @get('onclick', {item: @get('item'), rating: newRating} )
+      console.log("on-click here in StarRatingComponent setRating action")
+      @get "on-click",
+        item: @get("item")
+        rating: newRating
   }
 )
 

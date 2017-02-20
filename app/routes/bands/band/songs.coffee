@@ -1,9 +1,8 @@
 import Ember from 'ember'
-# import Song from '../../../models/song'
 
 BandsBandSongsRoute = Ember.Route.extend(
   model: ->
-    @modelFor('bands.band')
+    @modelFor('bands.band')#.get('songs')
 
   resetController: (controller) ->
     controller.set('songCreationStarted', false)
@@ -17,11 +16,12 @@ BandsBandSongsRoute = Ember.Route.extend(
       controller = @get('controller')
       band       = @modelFor('bands.band')
 
-      song = @store.createRecord('song',
-        title: controller.getProperties('title'),
-        band: band
+      song = @store.createRecord('song', {
+          title: controller.get('title'),
+          band: band,
+          rating: 0
+        }
       )
-
       song.save().then ->
         controller.set('title', '')
   }

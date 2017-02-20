@@ -9,6 +9,7 @@ BandsBandDetailsController = Ember.Controller.extend(
 
     save: ->
       @set('isEditing', false)
+      return true
   }
 )
 

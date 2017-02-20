@@ -9,7 +9,10 @@ BandsBandDetailsRoute = Ember.Route.extend(
       @set('isEditing', true)
 
     save: ->
-      @set('isEditing', false)
+      controller = @get('controller')
+      band       = controller.get('model')
+      band.save()
+      # @set('isEditing', false)
 
     willTransition: (transition) ->
       leave      = ''

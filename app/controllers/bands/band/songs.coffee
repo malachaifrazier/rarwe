@@ -8,13 +8,17 @@ BandsBandSongsController = Ember.Controller.extend(
 
   actions: {
     enableSongCreation: ->
-      return @set('songCreationStarted', true)
+      @set("songCreationStarted", true)
+      false
 
     updateRating: (params) ->
-      debugger
+      console.log("BandsBandSongsController#updateRating")
       song   = params.item
       rating = params.rating
+      if song.get('rating') == rating
+        rating = 0
       song.set('rating', rating)
+      song.save()
   }
 )
 export default BandsBandSongsController

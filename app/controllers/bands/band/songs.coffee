@@ -1,6 +1,6 @@
 import Ember from 'ember'
 
-BandsBandSongsController = Ember.Controller.extend(
+BandsBandSongsController = Ember.Controller.extend
   queryParams: {
     sortBy: 'sort',
     searchTerm: 's',
@@ -28,7 +28,7 @@ BandsBandSongsController = Ember.Controller.extend(
   canCreateSong: Ember.computed 'songCreationStarted', 'model.songs.length', ->
     return @get('songCreationStarted') || @get('model.songs.length')
 
-  actions: {
+  actions:
     enableSongCreation: ->
       @set("songCreationStarted", true)
       false
@@ -41,6 +41,5 @@ BandsBandSongsController = Ember.Controller.extend(
         rating = 0
       song.set('rating', rating)
       song.save()
-  }
-)
+
 export default BandsBandSongsController

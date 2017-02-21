@@ -1,10 +1,10 @@
 import Ember from 'ember'
 
-BandsRoute = Ember.Route.extend(
+BandsRoute = Ember.Route.extend
   model: ->
     @store.findAll('band')
 
-  actions: {
+  actions:
     didTransition: ->
       document.title = 'Bands - Rock & Roll'
 
@@ -16,7 +16,5 @@ BandsRoute = Ember.Route.extend(
       band.save().then ->
         controller.set('name', '')
         route.transitionTo('bands.band.songs', band)
-  }
-)
 
 export default BandsRoute

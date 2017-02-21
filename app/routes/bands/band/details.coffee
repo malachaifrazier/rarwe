@@ -1,10 +1,7 @@
 import Ember from 'ember'
 
-BandsBandDetailsRoute = Ember.Route.extend(
-  # model: ->
-  #   return @modelFor('bands.band')
-
-  actions: {
+BandsBandDetailsRoute = Ember.Route.extend
+  actions:
     edit: ->
       @set('isEditing', true)
 
@@ -12,7 +9,6 @@ BandsBandDetailsRoute = Ember.Route.extend(
       controller = @get('controller')
       band       = controller.get('model')
       band.save()
-      # @set('isEditing', false)
 
     willTransition: (transition) ->
       leave      = ''
@@ -24,7 +20,5 @@ BandsBandDetailsRoute = Ember.Route.extend(
           controller.set('isEditing', false)
         else
           transition.abort()
-  }
-)
 
 export default BandsBandDetailsRoute

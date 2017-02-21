@@ -1,12 +1,11 @@
 import Ember from 'ember'
 
-Song = Ember.Object.extend(
+Song = Ember.Object.extend
   title: '',
   band: '',
   rating: 0
-)
 
-SongsRoute = Ember.Route.extend(
+SongsRoute = Ember.Route.extend
   model: ->
     blackDog = Song.create
       title: 'Black Dog',
@@ -24,6 +23,5 @@ SongsRoute = Ember.Route.extend(
       rating: 2
 
     [blackDog, yellowLedbetter, pretender]
-)
 
 export default SongsRoute

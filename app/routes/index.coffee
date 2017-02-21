@@ -1,8 +1,7 @@
 import Ember from 'ember'
 
-IndexRoute = Ember.Route.extend(
+IndexRoute = Ember.Route.extend
   beforeModel: ->
     @transitionTo('bands')
-)
 
 export default IndexRoute

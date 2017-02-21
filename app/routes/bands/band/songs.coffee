@@ -1,13 +1,13 @@
 import Ember from 'ember'
 
-BandsBandSongsRoute = Ember.Route.extend(
+BandsBandSongsRoute = Ember.Route.extend
   model: ->
     @modelFor('bands.band')
 
   resetController: (controller) ->
     controller.set('songCreationStarted', false)
 
-  actions: {
+  actions:
     didTransition: ->
       band = @modelFor('bands.band')
       document.title = "#{band.get('name')} songs - Rock & Roll"
@@ -24,7 +24,5 @@ BandsBandSongsRoute = Ember.Route.extend(
       )
       song.save().then ->
         controller.set('title', '')
-  }
-)
 
 export default BandsBandSongsRoute

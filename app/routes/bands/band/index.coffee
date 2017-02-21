@@ -1,7 +1,7 @@
 import Ember from 'ember'
 
 BandsBandIndexRoute = Ember.Route.extend(
-  afterModel: (band)->
+  afterModel: (band) ->
     description = band.get('description')
 
     if Ember.isEmpty(description)

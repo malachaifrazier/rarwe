@@ -1,6 +1,4 @@
 import Ember from 'ember'
-# import Band from '../models/band'
-# import Song from '../models/song'
 
 BandsRoute = Ember.Route.extend(
   model: ->

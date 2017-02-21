@@ -1,7 +1,29 @@
 import Ember from 'ember'
 
 BandsBandSongsController = Ember.Controller.extend(
+  queryParams: {
+    sortBy: 'sort',
+    searchTerm: 's',
+  }
+
   songCreationStarted: false
+  sortBy: 'ratingDesc'
+  searchTerm: ''
+  sortProperties: Ember.computed 'sortBy', ->
+    options = {
+    'ratingDesc': 'rating:desc,title:asc',
+    'ratingAsc': 'rating:asc,title:asc',
+    'titleDesc': 'title:desc',
+    'titleAsc': 'title:asc',
+    }
+    options[@get('sortBy')].split(',')
+
+  matchingSongs: Ember.computed 'model.songs.@each.title', 'searchTerm', ->
+    searchTerm = @get('searchTerm').toLowerCase()
+    @get('model.songs').filter (song) ->
+      song.get('title').toLowerCase().indexOf(searchTerm) != -1
+
+  sortedSongs: Ember.computed.sort('matchingSongs', 'sortProperties')
 
   canCreateSong: Ember.computed 'songCreationStarted', 'model.songs.length', ->
     return @get('songCreationStarted') || @get('model.songs.length')
@@ -12,7 +34,7 @@ BandsBandSongsController = Ember.Controller.extend(
       false
 
     updateRating: (params) ->
-      console.log("BandsBandSongsController#updateRating")
+      alert("BandsBandSongsController#updateRating")
       song   = params.item
       rating = params.rating
       if song.get('rating') == rating

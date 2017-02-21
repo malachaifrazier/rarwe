@@ -2,7 +2,7 @@ import Ember from 'ember'
 
 BandsBandSongsRoute = Ember.Route.extend(
   model: ->
-    @modelFor('bands.band')#.get('songs')
+    @modelFor('bands.band')
 
   resetController: (controller) ->
     controller.set('songCreationStarted', false)

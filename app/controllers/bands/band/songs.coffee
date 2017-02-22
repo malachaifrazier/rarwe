@@ -1,4 +1,5 @@
 import Ember from 'ember'
+import { capitalizeWords as capitalize } from 'rarwe/helpers/capitalize-words'
 
 BandsBandSongsController = Ember.Controller.extend
   queryParams: {
@@ -9,6 +10,11 @@ BandsBandSongsController = Ember.Controller.extend
   songCreationStarted: false
   sortBy: 'ratingDesc'
   searchTerm: ''
+
+  newSongPlaceholder: Ember.computed 'model.name', () ->
+    bandName = @get('model.name')
+    "New #{capitalize(bandName)} song"
+
   sortProperties: Ember.computed 'sortBy', ->
     options = {
     'ratingDesc': 'rating:desc,title:asc',

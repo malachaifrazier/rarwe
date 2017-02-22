@@ -1,4 +1,5 @@
 import Ember from 'ember'
+# import { capitalize } from 'rarwe/helpers/capitalize'
 
 BandsController = Ember.Controller.extend
   name: ''

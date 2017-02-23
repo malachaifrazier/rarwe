@@ -5,5 +5,6 @@ module 'Unit | Helper | capitalize'
 
 # Replace this with your real tests.
 test 'it works', (assert) ->
-  result = capitalize "test there is"
-  assert.ok result
+  string            = "test there is"
+  capitalizedString = capitalize(string)
+  assert.equal capitalizedString, "Test There Is"

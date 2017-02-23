@@ -26,25 +26,29 @@ BandsBandSongsController = Ember.Controller.extend
 
   matchingSongs: Ember.computed 'model.songs.@each.title', 'searchTerm', ->
     searchTerm = @get('searchTerm').toLowerCase()
-    @get('model.songs').filter (song) ->
+    @get('model.songs').filter (song) =>
       song.get('title').toLowerCase().indexOf(searchTerm) != -1
 
-  sortedSongs: Ember.computed.sort('matchingSongs', 'sortProperties')
+  isAddButtonDisabled: Ember.computed.empty('title')
+  hasSongs:            Ember.computed.bool('model.songs.length')
+  canCreateSong:       Ember.computed.or('songCreationStarted', 'hasSongs')
 
-  canCreateSong: Ember.computed 'songCreationStarted', 'model.songs.length', ->
-    return @get('songCreationStarted') || @get('model.songs.length')
+  # canCreateSong: Ember.computed 'songCreationStarted', 'model.songs.length', ->
+  #   @get('songCreationStarted') || @get('model.songs.length')
+
+  sortedSongs: Ember.computed.sort('matchingSongs', 'sortProperties')
+  # Disable sorting
+  # sortedSongs: Ember.computed.alias('matchingSongs')
 
   actions:
     enableSongCreation: ->
       @set("songCreationStarted", true)
-      false
+      return false
 
     updateRating: (params) ->
-      alert("BandsBandSongsController#updateRating")
-      song   = params.item
-      rating = params.rating
+      { item: song, rating } = params
       if song.get('rating') == rating
-        rating = 0
+        rating = null
       song.set('rating', rating)
       song.save()
 
